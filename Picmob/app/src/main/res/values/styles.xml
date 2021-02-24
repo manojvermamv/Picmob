@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorControlNormal</item>
+        <item name="colorControlHighlight">@color/colorControlHighlight</item>
+        <item name="fontFamily">@font/josefin_sans_regular</item>
+        <item name="android:textColor">@color/textColorLight</item>
+        <item name="android:editTextColor">@color/textColorLight</item>
+        <item name="android:textColorHint">@color/textColorDark</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="searchViewStyle">@style/MaterialSearchViewStyle</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="HomeActivityTheme" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorControlNormal</item>
+        <item name="colorControlHighlight">@color/colorControlHighlight</item>
+        <item name="fontFamily">@font/josefin_sans_regular</item>
+        <item name="android:textColor">@color/textColorLight</item>
+        <item name="android:editTextColor">@color/textColorLight</item>
+        <item name="android:textColorHint">@color/textColorDark</item>
+        <!--        <item name="android:windowTranslucentStatus">true</item>-->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="searchViewStyle">@style/MaterialSearchViewStyle</item>
+        <!--        <item name="android:actionOverflowMenuStyle">@style/CustomOverflowActionMenu</item>-->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="CustomDialogStyle" parent="Theme.AppCompat.DialogWhenLarge">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+<!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:windowAnimationStyle">@style/Animation.AppCompat.Dialog</item>
+    </style>
+
+    <style name="CustomOverflowActionMenu" parent="Widget.AppCompat.PopupMenu.Overflow">
+        <item name="android:textColor">@color/textColorLight</item>
+    </style>
+
+    <style name="ProgressBar1" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:indeterminateDrawable">@drawable/progress_animation1</item>
+        <item name="android:minHeight">68dp</item>
+        <item name="android:minWidth">68dp</item>
+    </style>
+
+    <style name="SearchBarView" parent="Widget.AppCompat.SearchView">
+        <item name="searchHintIcon">@null</item>
+        <item name="android:textColor">@color/textColorLight</item>
+        <item name="android:textColorHint">@color/textColorDark</item>
+    </style>
+
+    <style name="MaterialSearchViewStyle" parent="Widget.AppCompat.SearchView">
+        <item name="searchHintIcon">@null</item>
+        <!--        <item name="android:searchHintIcon">@null</item>-->
+        <!--        <item name="android:searchIcon">@null</item>-->
+        <!--<item name="suggestionRowLayout">@layout/custom_toast_layout</item>-->
+        <item name="voiceIcon">@drawable/ic_voice_round_24</item>
+        <item name="closeIcon">@drawable/ic_close_round_24</item>
+        <item name="searchIcon">@drawable/ic_search_round_24</item>
+        <item name="android:textColor">@color/textColorLight</item>
+        <item name="android:textColorHint">@color/textColorDark</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@color/textColorLight</item>
+        <item name="android:textColorPrimary">@color/textColorDark</item>
+        <item name="android:textColorSecondary">@color/colorAccent</item>
+        <!--        <item name="android:colorBackground">@color/colorPrimary</item>-->
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:dialogCornerRadius">10dp</item>
+        <item name="android:colorControlNormal">@color/colorControlNormal</item>
+        <item name="android:colorControlHighlight">@color/colorControlHighlight</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/AlertButtonStyle</item>
+        <item name="android:buttonBarNeutralButtonStyle">@style/AlertButtonStyle</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/AlertButtonStyle</item>
+    </style>
+
+    <style name="AlertButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">@color/com_facebook_blue</item>
+    </style>
+
+    <style name="error_appearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">#8BF02626</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+</resources>

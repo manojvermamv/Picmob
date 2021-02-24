@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="profile_tab">Profile</string>
+    <string name="home_tab">Home</string>
+    <string name="categories_tab">Categories</string>
+    <string name="search_home">Search</string>
+    <string name="search_image_not_found">We couldn\'t find that photo</string>
+    <string name="search_again">Search again!</string>
+    <string name="home_popular">Popular</string>
+    <string name="home_featured">Featured</string>
+</resources>

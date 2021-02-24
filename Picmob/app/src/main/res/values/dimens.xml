@@ -1,0 +1,22 @@
+<resources>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="navigation_drawer_start">16dp</dimen>
+    <dimen name="navigation_drawer_item_layout_padding_top">14dp</dimen>
+    <dimen name="navigation_drawer_item_layout_padding_bottom">14dp</dimen>
+    <dimen name="navigation_drawer_item_text_padding_start">18dp</dimen>
+    <dimen name="navigation_drawer_item_icon_size">26dp</dimen>
+    <dimen name="navigation_drawer_default_text">15sp</dimen>
+    <dimen name="navigation_drawer_large_text">16sp</dimen>
+    <dimen name="navigation_drawer_small_text">13sp</dimen>
+
+    <dimen name="progress_bar_padding">8sp</dimen>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="home_category_item_marginStart">8dp</dimen>
+
+    <dimen name="gradient_btn_stroke_width">1dp</dimen>
+    <dimen name="gradient_btn_corners_radius">6dp</dimen>
+</resources>
