@@ -3,8 +3,20 @@ Picmob - Wallpapers &amp; Ringtones
 
 ## Screenshots
 
-![ScreenShot](https://raw.github.com/manojvermamv/Picmob/Screenshots/Screenshot_01.jpg)
+Homescreen
 
-![Alt text](/Screenshots/Screenshot_02.jpg?raw=true "Navigation Menu")
+<div align="center">
+    <img src="/Screenshots/Screenshot_01.jpg" width="400px"</img> 
+</div>
 
-![Alt text](/Screenshots/Screenshot_03.jpg?raw=true "About Section")
+Navigation Menu
+
+<div align="center">
+    <img src="/Screenshots/Screenshot_02.jpg" width="400px"</img> 
+</div>
+
+About Section
+
+<div align="center">
+    <img src="/Screenshots/Screenshot_03.jpg" width="400px"</img> 
+</div>
