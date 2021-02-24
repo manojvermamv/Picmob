@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item>
+
+        <layer-list>
+            <item>
+                <shape android:shape="oval">
+                    <size
+                        android:width="60dp"
+                        android:height="60dp" />
+                    <solid android:color="@color/colorPrimary" />
+                </shape>
+            </item>
+            <item>
+                <rotate
+                    android:fromDegrees="45"
+                    android:pivotX="50%"
+                    android:pivotY="50%"
+                    android:toDegrees="360">
+                    <bitmap app:srcCompat="@drawable/ic_loading_eclipse_200px" />
+                </rotate>
+            </item>
+            <item>
+                <animated-rotate
+                    android:drawable="@drawable/ic_loading_pulse_animated_200px"
+                    android:pivotX="50%"
+                    android:pivotY="50%" />
+            </item>
+            <!--            <item>-->
+            <!--                <animated-rotate-->
+            <!--                    android:drawable="@drawable/ic_loading_eclipse_200px"-->
+            <!--                    android:pivotX="50%"-->
+            <!--                    android:pivotY="50%" />-->
+            <!--            </item>-->
+        </layer-list>
+
+    </item>
+
+</layer-list>
