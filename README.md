@@ -5,8 +5,7 @@ Picmob - Wallpapers &amp; Ringtones
 
 
 <div align="start">
-    <p>Homescreen</p>
-    <img align="center" src="/Screenshots/Screenshot_01.jpg" width="200px" height="380px"</img> 
+    <img width="45%" src="/Screenshots/Screenshot_01.jpg" alt="Home screen" title="Homescreen"></img>
 </div>
 
 <div align="start">
