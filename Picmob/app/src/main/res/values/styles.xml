@@ -40,8 +40,6 @@
     <style name="CustomDialogStyle" parent="Theme.AppCompat.DialogWhenLarge">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowTranslucentStatus">true</item>
-<!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
-        <item name="android:statusBarColor">@color/colorPrimary</item>
         <item name="android:windowAnimationStyle">@style/Animation.AppCompat.Dialog</item>
     </style>
 

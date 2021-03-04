@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/earthquake_linear_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp">
+
+        <TextView
+            android:id="@+id/earthquake_magnitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3.6 Magnitude"
+            android:layout_alignParentStart="true"
+            android:textColor="@color/textColorLight" />
+
+        <TextView
+            android:id="@+id/earthquake_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30 East Los Angles"
+            android:layout_marginEnd="28dp"
+            android:layout_toStartOf="@+id/earthquake_date"
+            android:textColor="@color/textColorLight" />
+
+        <TextView
+            android:id="@+id/earthquake_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="27 Feb 2014"
+            android:textColor="@color/textColorLight" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/quantum_white_divider" />
+
+</LinearLayout>

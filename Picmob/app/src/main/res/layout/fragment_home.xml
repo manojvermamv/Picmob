@@ -24,6 +24,13 @@
                 android:textColor="@color/textColorLight"
                 android:textSize="18sp" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/fragment_home_featured_recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                android:scrollbars="none" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -46,18 +53,39 @@
                 android:nestedScrollingEnabled="false"
                 android:scrollbars="none" />
 
+            <Button
+                android:id="@+id/loadMoreWallpapers"
+                style="?attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="14dp"
+                android:text="@string/load_more"
+                android:textAllCaps="false"
+                android:textColor="@color/com_facebook_blue"
+                android:visibility="gone" />
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-    <ProgressBar
-        android:id="@+id/fragment_home_progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="@drawable/progress_bar_bg"
-        android:padding="2dp"
-        android:progressDrawable="@drawable/ic_loading_eclipse_200px"
-        android:visibility="gone" />
+    <RelativeLayout
+        android:id="@+id/fragment_home_progressBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent_32"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/fragment_home_progressBar"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/progress_bar_bg"
+            android:padding="3dp"
+            android:progressDrawable="@drawable/ic_loading_eclipse_200px"
+            android:visibility="visible" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
