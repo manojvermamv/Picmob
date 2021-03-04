@@ -2,12 +2,15 @@ package com.manoj.phonyhub.fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,14 +19,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.manoj.phonyhub.R;
+import com.manoj.phonyhub.activities.WallpaperActivity;
 import com.manoj.phonyhub.adapter.PicsumRecycleAdapter;
 import com.manoj.phonyhub.data.PicsumDataModel;
-import com.manoj.phonyhub.extra.EndlessRecyclerViewScrollListener;
 import com.manoj.phonyhub.interfaces.PicsumApi;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,16 +37,12 @@ import retrofit2.Response;
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private static final String LIST_STATE = "list_state";
+    Button loadMoreWallpapersBtn;
     ProgressBar progressBar;
-    RecyclerView picsumRecyclerView;
-    GridLayoutManager gridLayoutManager;
-    PicsumRecycleAdapter picsumRecycleAdapter;
-    List<PicsumDataModel> picsumDataList;
-    PicsumDataModel dataModel;
+    RelativeLayout progressBarLayout;
+    RecyclerView picsumRecyclerView, featured_recyclerView;
     int index = -1, top = -1;
-    int page = 1, limit = 36;
-    private Parcelable recycleViewState;
-    private Bundle savedState = null;
+    int page = 9, limit = 99;
 
     public HomeFragment() {
         // Requried empty public constructor
@@ -53,22 +53,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         progressBar = view.findViewById(R.id.fragment_home_progressBar);
+        progressBarLayout = view.findViewById(R.id.fragment_home_progressBarLayout);
         picsumRecyclerView = view.findViewById(R.id.picsum_recycleView);
+        featured_recyclerView = view.findViewById(R.id.fragment_home_featured_recyclerView);
+        loadMoreWallpapersBtn = view.findViewById(R.id.loadMoreWallpapers);
 
-        // Load first limited data from API
-        gridLayoutManager = new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false);
-        loadPicsumDataFromApi();
-
-        EndlessRecyclerViewScrollListener endlessScrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                // Load more data from API and adding to the recycler view
-                loadMorePicsumDataFromApi(view, page);
-            }
-        };
-
-        // Attaching Scroll Listener with RecyclerView
-        picsumRecyclerView.addOnScrollListener(endlessScrollListener);
+        loadMoreWallpapersBtn.setOnClickListener(this);
+        progressBarLayout.setVisibility(View.VISIBLE);
+        new loadPicsumDataFromApiBg().start();
 
         return view;
     }
@@ -100,81 +92,34 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 //    }
 
     @Override
-    public void onClick(View v) {
-        int id = v.getId();
+    public void onClick(View view) {
+        int id = view.getId();
+        if (view == loadMoreWallpapersBtn) {
+            startActivity(new Intent(getActivity(), WallpaperActivity.class));
+        }
     }
 
-    private void loadPicsumDataFromApi() {
-        //Map<String, Integer> pageListMap = new HashMap<String, Integer>();
-        //pageListMap.put("page", 3);
-        //pageListMap.put("limit", 36);
-        progressBar.setVisibility(View.VISIBLE);
-        PicsumApi.getClient().getPicsumList(page, limit).enqueue(new Callback<List<PicsumDataModel>>() {
-            @Override
-            public void onResponse(@NotNull Call<List<PicsumDataModel>> call, @NotNull Response<List<PicsumDataModel>> response) {
-                picsumDataList = response.body();
-                picsumRecyclerView.setLayoutManager(gridLayoutManager);
-                picsumRecycleAdapter = new PicsumRecycleAdapter(getActivity(), picsumDataList);
-                picsumRecyclerView.setAdapter(picsumRecycleAdapter);
-                progressBar.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<List<PicsumDataModel>> call, @NotNull Throwable t) {
-                progressBar.setVisibility(View.GONE);
-                networkErrorDialog();
-            }
-        });
-
-    }
-
-    private void loadMorePicsumDataFromApi(RecyclerView recyclerView, int page) {
-        //picsumDataList.add(null);
-        //picsumRecycleAdapter.notifyItemInserted(picsumDataList.size() - 1);
-        PicsumApi.getClient().getPicsumList(page, limit).enqueue(new Callback<List<PicsumDataModel>>() {
-            @Override
-            public void onResponse(@NotNull Call<List<PicsumDataModel>> call, @NotNull Response<List<PicsumDataModel>> response) {
-                //picsumDataList.remove(picsumDataList.size() - 1);
-                List<PicsumDataModel> moreData = response.body();
-                picsumDataList.addAll(moreData);
-                int curSize = picsumRecycleAdapter.getItemCount();
-                recyclerView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        //picsumRecycleAdapter.notifyItemRangeInserted(curSize, picsumDataList.size());
-                        //picsumRecycleAdapter.notifyItemRangeInserted(curSize, picsumDataList.size() - 1);
-                        picsumRecycleAdapter.notifyItemRangeInserted(curSize, moreData.size());
-                    }
-                });
-            }
-
-            @Override
-            public void onFailure(@NotNull Call<List<PicsumDataModel>> call, @NotNull Throwable t) {
-                networkErrorDialog();
-            }
-        });
-
-    }
-
-//    @Override
-//    public void onPause() {
-//        super.onPause();
-//        // read current state of RecycleView position
-//        if (layoutManager != null) {
-//            index = layoutManager.findFirstVisibleItemPosition();
-//            View view = picsumRecyclerView.getChildAt(0);
-//            top = (view == null) ? 0 : (view.getTop() - picsumRecyclerView.getPaddingTop());
-//        }
-//        //savedRecycleState = layoutManager.onSaveInstanceState();
-//    }
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        // set RecycleView position
-//        if (index != -1 && layoutManager != null) {
-//            layoutManager.scrollToPositionWithOffset(index, top);
-//        }
-//        //layoutManager.onRestoreInstanceState(savedRecycleState);
+//    private void loadPicsumDataFromApi() {
+//        //Map<String, Integer> pageListMap = new HashMap<String, Integer>();
+//        //pageListMap.put("page", 3);
+//        //pageListMap.put("limit", 36);
+//        PicsumApi.getClient().getPicsumList(page, limit).enqueue(new Callback<List<PicsumDataModel>>() {
+//            @Override
+//            public void onResponse(@NotNull Call<List<PicsumDataModel>> call, @NotNull Response<List<PicsumDataModel>> response) {
+//                picsumDataList = response.body();
+//                picsumRecyclerView.setLayoutManager(gridLayoutManager);
+//                picsumRecycleAdapter = new PicsumRecycleAdapter(getActivity(), picsumDataList);
+//                picsumRecyclerView.setAdapter(picsumRecycleAdapter);
+//                progressBarLayout.setVisibility(View.GONE);
+//            }
+//
+//            @Override
+//            public void onFailure(@NotNull Call<List<PicsumDataModel>> call, @NotNull Throwable t) {
+//                progressBarLayout.setVisibility(View.GONE);
+//                networkErrorDialog();
+//            }
+//        });
+//
 //    }
 
     private void networkErrorDialog() {
@@ -188,6 +133,42 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
         });
         builder.create().show();
+    }
+
+
+    class loadPicsumDataFromApiBg extends Thread {
+        @Override
+        public void run() {
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3, GridLayoutManager.VERTICAL, false);
+
+            PicsumApi.getClient().getPicsumList(page, limit).enqueue(new Callback<List<PicsumDataModel>>() {
+                @Override
+                public void onResponse(@NotNull Call<List<PicsumDataModel>> call, @NotNull Response<List<PicsumDataModel>> response) {
+                    List<PicsumDataModel> picsumDataList = response.body();
+                    PicsumRecycleAdapter picsumRecycleAdapter = new PicsumRecycleAdapter(getActivity(), picsumDataList);
+                    picsumRecyclerView.setLayoutManager(gridLayoutManager);
+                    picsumRecyclerView.setAdapter(picsumRecycleAdapter);
+                    Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressBarLayout.setVisibility(View.GONE);
+                            loadMoreWallpapersBtn.setVisibility(View.VISIBLE);
+                        }
+                    });
+                }
+
+                @Override
+                public void onFailure(@NotNull Call<List<PicsumDataModel>> call, @NotNull Throwable t) {
+                    Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            progressBarLayout.setVisibility(View.GONE);
+                            networkErrorDialog();
+                        }
+                    });
+                }
+            });
+        }
     }
 
 }

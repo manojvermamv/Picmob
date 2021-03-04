@@ -36,8 +36,8 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
         toolbar.setTitle("Information");
         toolbar.setNavigationIcon(R.drawable.ic_back_arrow_round_24);
         toolbar.setNavigationContentDescription("NavigationBack");
-        toolbar.setNavigationOnClickListener(this);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(this);
 
         // Initalizing variables
         contact_us_image = findViewById(R.id.aboutImageView);
@@ -60,11 +60,11 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
         String profile_pic_url = "https://github.com/manoj_verma_mv/profilePic.jpg";
         String thumbnail_image_url = "https://github.com/dikshakumari5643/Pybelt/raw/master/fashion1.jpg";
         String original_image_url = "https://github.com/dikshakumari5643/Pybelt/raw/master/fashion1_ori.jpg";
-        String image_url = "https://source.unsplash.com/480x220/?contact,technology";
+        String image_url = "https://source.unsplash.com/480x220/?contact,phone";
 
         Glide.with(this)
                 .load(image_url)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(contact_us_image);
 
 //        Glide.with(this)
@@ -79,7 +79,6 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
 //                                .load(original_image_url)
 //                                .into(contact_us_image);
 //                    }
-//
 //                    @Override
 //                    public void onLoadCleared(@Nullable Drawable placeholder) {
 //                    }
@@ -92,7 +91,7 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         int id = v.getId();
         if (v.getContentDescription() == "NavigationBack") {
-            AboutActivity.super.onBackPressed();
+            finish();
         } else if (id == R.id.aboutContactUs) {
             HelperMethod.toast("ContactUS");
         } else if (id == R.id.about_follow_us) {
@@ -108,12 +107,6 @@ public class AboutActivity extends AppCompatActivity implements View.OnClickList
         } else if (id == R.id.about_license) {
             HelperMethod.toast("License");
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        finish();
-        super.onBackPressed();
     }
 
 

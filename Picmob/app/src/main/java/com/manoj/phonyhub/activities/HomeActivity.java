@@ -32,6 +32,8 @@ import com.manoj.phonyhub.R;
 import com.manoj.phonyhub.fragments.CategoriesFragment;
 import com.manoj.phonyhub.fragments.HomeFragment;
 import com.manoj.phonyhub.fragments.ProfileFragment;
+import com.manoj.phonyhub.test.EarthquakeActivity;
+import com.manoj.phonyhub.test.MVPTestActivity;
 
 import java.util.Objects;
 
@@ -217,13 +219,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             drawerLayout.closeDrawer(GravityCompat.START);
         } else if (id == R.id.navigation_item_wallpapers) {
             drawerLayout.closeDrawer(GravityCompat.START);
+            startActivity(new Intent(this, WallpaperActivity.class));
         } else if (id == R.id.navigation_item_video_wallpapers) {
             drawerLayout.closeDrawer(GravityCompat.START);
+            startActivity(new Intent(this, MVPTestActivity.class));
         } else if (id == R.id.navigation_item_ringtones) {
             drawerLayout.closeDrawer(GravityCompat.START);
+            startActivity(new Intent(this, TestActivity.class));
         } else if (id == R.id.navigation_item_notification_sound) {
             drawerLayout.closeDrawer(GravityCompat.START);
-            startActivity(new Intent(this, TestActivity.class));
+            startActivity(new Intent(this, TestActivity2.class));
         } else if (id == R.id.navigation_item_upload) {
             drawerLayout.closeDrawer(GravityCompat.START);
             startActivity(new Intent(this, EndlessScrollingActivity.class));

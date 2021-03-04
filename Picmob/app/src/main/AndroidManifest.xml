@@ -33,12 +33,18 @@
             android:name=".ScrollingActivity"
             android:parentActivityName=".activities.HomeActivity"
             android:theme="@style/AppTheme" />
+        <activity android:name=".activities.WallpaperActivity" />
         <activity android:name=".activities.FavoritesActivity" />
         <activity android:name=".activities.SearchActivity" />
         <activity android:name=".activities.AboutActivity" />
         <activity android:name=".activities.TestActivity" />
+        <activity android:name=".activities.TestActivity2" />
+        <activity android:name=".test.EarthquakeActivity" />
+        <activity android:name=".test.MVPTestActivity" />
         <activity android:name=".activities.EndlessScrollingActivity" />
         <activity android:name=".DebugActivity" />
+
+        <service android:name=".test.TestService" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

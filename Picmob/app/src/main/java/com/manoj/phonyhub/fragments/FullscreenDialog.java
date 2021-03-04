@@ -96,30 +96,18 @@ public class FullscreenDialog extends DialogFragment implements View.OnClickList
 //        }
 //        picsum_full_image_background.setController(controller);
 
-        Shimmer shimmer = new Shimmer.AlphaHighlightBuilder()
-                .setDuration(1800L)
-                .setBaseAlpha(0.5F)
-                .setHighlightAlpha(0.3F)
-                .setDirection(Shimmer.Direction.LEFT_TO_RIGHT)
-                .setAutoStart(true)
-                .build();
-
-        ShimmerDrawable shimmerDrawable = new ShimmerDrawable();
-        shimmerDrawable.setShimmer(shimmer);
-
         Glide.with(getActivity())
                 .asBitmap()
                 .load(thumbnail_url_mini)
                 .into(new CustomTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(@NonNull Bitmap bitmap, @Nullable Transition<? super Bitmap> transition) {
-                        Bitmap blurBitmap = HelperMethod.fastblur(bitmap, 2.6f, 48);
+                        Bitmap blurBitmap = HelperMethod.fastblur(bitmap, 2.6f, 56);
                         picsum_full_image_background.setImageBitmap(blurBitmap);
                         Glide.with(getActivity())
                                 .load(thumbnail_url)
                                 .placeholder(new BitmapDrawable(getContext().getResources(), blurBitmap))
                                 .into(picsum_full_image);
-                        //.thumbnail(Glide.with(getActivity()).load(shimmerDrawable))
                     }
 
                     @Override

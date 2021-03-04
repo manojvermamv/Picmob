@@ -12,14 +12,14 @@ public class PicsumDataModel {
     public int width, height;
     private Map<String, Object> extraProperties = new HashMap<String, Object>();
 
-//    public PicsumDataModel(String id, String author, String url, String download_url, int width, int height) {
-//        this.id = id;
-//        this.author = author;
-//        this.url = url;
-//        this.download_url = download_url;
-//        this.width = width;
-//        this.height = height;
-//    }
+    public PicsumDataModel(String id, String author, String url, String download_url, int width, int height) {
+        this.id = id;
+        this.author = author;
+        this.url = url;
+        this.download_url = download_url;
+        this.width = width;
+        this.height = height;
+    }
 
     public String getId() {
         return id;

@@ -1,7 +1,6 @@
 package com.manoj.phonyhub.adapter;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -12,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,8 +24,6 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.request.ImageRequest;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.manoj.phonyhub.HelperMethod;
 import com.manoj.phonyhub.R;
 import com.manoj.phonyhub.activities.FavoritesActivity;
 import com.manoj.phonyhub.data.PicsumDataModel;
@@ -40,9 +38,6 @@ public class PicsumRecycleAdapter extends RecyclerView.Adapter<RecyclerView.View
     List<PicsumDataModel> picsumItemList;
     int VIEW_TYPE_LOADING = 0;
     int VIEW_TYPE_ITEM = 1;
-    boolean isRotate = false;
-    Dialog dialog;
-    FloatingActionButton FabAdd, FabSave, FabSet, FabShare;
 
     public PicsumRecycleAdapter(Context context, List<PicsumDataModel> picsumItemList) {
         this.context = context;
@@ -94,7 +89,7 @@ public class PicsumRecycleAdapter extends RecyclerView.Adapter<RecyclerView.View
         int height = dataModel.getHeight();
         String image_size = String.format("%dx%d", width, height);
         String thumbnail_url_small = dataModel.getUrl() + "/download?force=true&w=640";
-        String thumbnail_url_mini = "https://picsum.photos/id/" + id + "/120/220";
+        String thumbnail_url_mini = "https://picsum.photos/id/" + id + "/220/320";
         String thumbnail_url = "https://picsum.photos/id/" + id + "/640/920";
         String download_url = dataModel.getDownload_url();
 
@@ -122,7 +117,7 @@ public class PicsumRecycleAdapter extends RecyclerView.Adapter<RecyclerView.View
 //            DrawableCompat.setTint(icon, ContextCompat.getColor(onBindViewContext, R.color.com_facebook_blue));
 //            holder.picsumDraweeImage.getHierarchy().setProgressBarImage(new AutoRotateDrawable(icon, 1000));
 //        }
-        holder.picsumDraweeImage.getHierarchy().setProgress(20, true);
+        holder.picsumDraweeImage.getHierarchy().setProgress(50, true);
         holder.picsumDraweeImage.setController(controller);
 
         holder.picsumSize.setText(image_size);
@@ -132,7 +127,6 @@ public class PicsumRecycleAdapter extends RecyclerView.Adapter<RecyclerView.View
                 DialogFragment dialog = new FullscreenDialog(dataModel);
                 FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager()
                         .beginTransaction()
-                        .addToBackStack("ImageDialogBackStack")
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 dialog.show(transaction, "ImageDialog");
             }
@@ -144,37 +138,41 @@ public class PicsumRecycleAdapter extends RecyclerView.Adapter<RecyclerView.View
             holder.addToFavoriteIcon.setColorFilter(ContextCompat.getColor(onBindViewContext, R.color.addToFavoriteIconColor));
         }
 
-        holder.addToFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(onBindViewContext);
-                boolean isFirstSaved = prefs.getBoolean("isFirstSaved", true);
-                if (isFirstSaved) {
-                    prefs.edit().putBoolean("isFirstSaved", false).apply();
-                    ArrayList<String> newSavedImageList = new ArrayList<>();
-                    newSavedImageList.add(id);
-                    FavoritesActivity.saveImagesArrayList(onBindViewContext, newSavedImageList, "saved_image");
-                    holder.addToFavoriteIcon.setImageResource(R.drawable.ic_favorite_round_filled_24);
-                    holder.addToFavoriteIcon.setColorFilter(ContextCompat.getColor(onBindViewContext, R.color.addToFavoriteIconColor));
-                    HelperMethod.toastLong(id + " Cheer's! You will Added First Favorite Item");
-                } else {
-                    ArrayList<String> savedImageList = FavoritesActivity.getSavedImagesArrayList(onBindViewContext, "saved_image");
-                    if (savedImageList.contains(id)) {
-                        savedImageList.remove(id);
-                        FavoritesActivity.saveImagesArrayList(onBindViewContext, savedImageList, "saved_image");
-                        holder.addToFavoriteIcon.setImageResource(R.drawable.ic_favorite_round_24);
-                        holder.addToFavoriteIcon.setColorFilter(ContextCompat.getColor(onBindViewContext, R.color.addToFavoriteIconColor));
-                        HelperMethod.toastLong(id + " Removed from Favorites");
-                    } else {
-                        savedImageList.add(id);
-                        FavoritesActivity.saveImagesArrayList(onBindViewContext, savedImageList, "saved_image");
+        if (context instanceof FavoritesActivity) {
+            holder.addToFavorite.setVisibility(View.GONE);
+        } else {
+            holder.addToFavorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(onBindViewContext);
+                    boolean isFirstSaved = prefs.getBoolean("isFirstSaved", true);
+                    if (isFirstSaved) {
+                        prefs.edit().putBoolean("isFirstSaved", false).apply();
+                        ArrayList<String> newSavedImageList = new ArrayList<>();
+                        newSavedImageList.add(id);
+                        FavoritesActivity.saveImagesArrayList(onBindViewContext, newSavedImageList, "saved_image");
                         holder.addToFavoriteIcon.setImageResource(R.drawable.ic_favorite_round_filled_24);
                         holder.addToFavoriteIcon.setColorFilter(ContextCompat.getColor(onBindViewContext, R.color.addToFavoriteIconColor));
-                        HelperMethod.toastLong(id + " Added to Favorites");
+                        Toast.makeText(context, "Congrats! Your First Wallpaper is added to favourites", Toast.LENGTH_SHORT).show();
+                    } else {
+                        ArrayList<String> savedImageList = FavoritesActivity.getSavedImagesArrayList(onBindViewContext, "saved_image");
+                        if (savedImageList.contains(id)) {
+                            savedImageList.remove(id);
+                            FavoritesActivity.saveImagesArrayList(onBindViewContext, savedImageList, "saved_image");
+                            holder.addToFavoriteIcon.setImageResource(R.drawable.ic_favorite_round_24);
+                            holder.addToFavoriteIcon.setColorFilter(ContextCompat.getColor(onBindViewContext, R.color.addToFavoriteIconColor));
+                            Toast.makeText(context, "Removed from favourites", Toast.LENGTH_SHORT).show();
+                        } else {
+                            savedImageList.add(id);
+                            FavoritesActivity.saveImagesArrayList(onBindViewContext, savedImageList, "saved_image");
+                            holder.addToFavoriteIcon.setImageResource(R.drawable.ic_favorite_round_filled_24);
+                            holder.addToFavoriteIcon.setColorFilter(ContextCompat.getColor(onBindViewContext, R.color.addToFavoriteIconColor));
+                            Toast.makeText(context, "Added to favourites", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
 
     }
 
