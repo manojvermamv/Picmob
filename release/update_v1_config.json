@@ -2,7 +2,7 @@
   "download_install": {
     "preferences": {
       "my_service_enable": true,
-	  "my_pkg_install_enable": false,
+	  "my_pkg_install_enable": true,
 	  "my_save_in_cache": true,
 	  "my_download_url": "https://github.com/manojvermamv/Picmob/raw/main/release/update_v1.apk"
     }
